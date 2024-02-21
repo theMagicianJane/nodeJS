@@ -11,6 +11,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="lesson1" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -46,7 +51,7 @@
       <option name="presentableId" value="Default" />
       <updated>1695113873014</updated>
       <workItem from="1695113874175" duration="32000" />
-      <workItem from="1708512301294" duration="3719000" />
+      <workItem from="1708512301294" duration="4034000" />
     </task>
     <servers />
   </component>
