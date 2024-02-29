@@ -13,7 +13,6 @@
  */
 
 import logger from "./lib/logger/logger.js";
-
 import color from "./color.js";
 import fruit from "./fruit.js";
 import {add} from "./handler.js"
