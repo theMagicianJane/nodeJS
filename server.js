@@ -13,7 +13,9 @@ const server = http.createServer((req, res) =>  {
     res.statusCode = 404;
     res.write('404')
   }
+
   res.end()
+  server.close()
 });
 
 server.on("error", err=> console.log(err));
