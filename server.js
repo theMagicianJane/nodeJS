@@ -1,4 +1,6 @@
 import http from "http";
+import config from "./lib/logger/config.js";
+import net from "net";
 
 let globalLogs = []
 
@@ -18,6 +20,28 @@ const server = http.createServer((req, res) =>  {
   server.close()
 });
 
-server.on("error", err=> console.log(err));
+const socketServer = net.createServer(() => {})
 
-export {server, globalLogs}
+socketServer.on('connection', socket => {
+  console.log("Socket server connected");
+
+  socket.on('data', (data) => {
+
+    globalLogs.push(JSON.parse(data.toString()))
+  });
+})
+
+socketServer.listen(5000, config.hostname, () => {
+  console.log('Socket server started')
+})
+
+
+server.listen(config.port, config.hostname, () => {
+  console.log(`Server is running on http://${config.hostname}:${config.port}`);
+});
+
+
+
+
+
+server.on("error", err=> console.log(err));
