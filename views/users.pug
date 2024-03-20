@@ -1,0 +1,9 @@
+- var usersArr = users
+ul
+  each user in usersArr
+      li #{user.id}: #{user.name}
+div Create user:
+    form(action='/user/create', method='post')
+        input(type="text" id="name" name="name" placeholder="Name" required)
+        input(type='input' id="pass" name='password' placeholder="Password" required)
+        button(type="submit" ) Create user
