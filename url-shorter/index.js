@@ -20,18 +20,17 @@ app.all('/', (req, res) => {
 });
 app.set('view engine', 'pug');
 app.use('/files', express.static("view"));
-app.use((err, req, res) => {
-  console.log(err);
 
-  res.status(500).send(err.message);
-});
 
 app.use('/info', new UrlController());
 app.use('/code', new CodeController());
 app.use('/user', new UserController());
 
 
+app.use((err, req, res) => {
 
+  res.status(500).send(err.message);
+});
 
 app.listen(8000, () => {
   console.log('Server is started');
