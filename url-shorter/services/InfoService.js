@@ -12,6 +12,10 @@ export default class InfoService{
     this.infoRepository.save(info);
   }
 
+  updateVisits(info){
+    this.infoRepository.save(info);
+  }
+
   getCode(code){
     return this.infoRepository.get(code)
   }
