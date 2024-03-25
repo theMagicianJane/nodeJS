@@ -8,7 +8,7 @@ import UrlController from "./controllers/UrlController.js";
 import CodeController from "./controllers/CodeController.js";
 import UserController from "./controllers/UserController.js";
 import LoginController from "./controllers/LoginController.js";
-import {initCsrfTokenMiddleware} from "./middleware/csrfMiddleware.js";
+import { rateLimitMiddleware } from "./middleware/rateLimitMiddleware.js";
 
 
 const app = express();
@@ -38,6 +38,7 @@ app.all('/', (req, res) => {
 app.set('view engine', 'pug');
 app.use('/files', express.static("view"));
 
+app.use(rateLimitMiddleware);
 
 app.use('/login', new LoginController())
 app.use('/code', new CodeController());
@@ -47,7 +48,6 @@ app.use('/user', new UserController());
 /*app.use((err, req, res) => {
   console.log(err)
 });*/
-app.use(initCsrfTokenMiddleware);
 
 app.listen(8000, () => {
   console.log('Server is started');
