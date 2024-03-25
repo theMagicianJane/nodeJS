@@ -36,7 +36,7 @@ async function checkLimit (code, res, type){
   }
 }
 
-async function rateLimitMiddleware(req, res, next) {
+function rateLimitMiddleware(req, res, next) {
   if (req.path.includes('code')) {
     const code = req.path.slice(6);
     const userId = new UserService().getUserByName(getUser(req))?.userId;
