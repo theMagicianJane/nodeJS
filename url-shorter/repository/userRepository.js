@@ -1,6 +1,6 @@
 const map = new Map();
 
-map.set("1", {userId: 1, name: "qwe", password: "qwe"});
+map.set("2", {userId: 2, name: "qwe", password: "qwe"});
 
 export default class UserRepository{
   save (user) {
@@ -17,6 +17,7 @@ export default class UserRepository{
   }
 
   getUserByName(name) {
+    console.log(map.values())
     for (let user of map.values()) {
       if (user.name === name) {
         return user;

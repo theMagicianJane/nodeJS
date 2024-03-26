@@ -38,7 +38,7 @@ app.all('/', (req, res) => {
 app.set('view engine', 'pug');
 app.use('/files', express.static("view"));
 
-app.use(rateLimitMiddleware);
+app.use('/code', rateLimitMiddleware);
 
 app.use('/login', new LoginController())
 app.use('/code', new CodeController());
