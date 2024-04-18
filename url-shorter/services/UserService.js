@@ -30,4 +30,35 @@ export default class UserService{
 
     return result;
   }
+
+  checkPassword(name, password) {
+    if(!name || !password){
+      return false;
+    }
+
+    const user = this.userRepository.getUserByName(name);
+
+    if (user?.password === password) {
+      return true;
+    }
+
+    return false;
+  }
+
+  getUser(userId){
+    const user = this.userRepository.get(userId);
+
+    return filterUserData(user);
+  }
+
+  getUserByName(name){
+    return this.userRepository.getUserByName(name);
+  }
+}
+
+function filterUserData(user){
+  return {
+    userId: user.userId,
+    name: user.name
+  }
 }

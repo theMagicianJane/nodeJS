@@ -1,0 +1,13 @@
+h2 Login Page
+ if errorMessage
+    div(style="color: red;") #{errorMessage}
+
+form(action="/login" method="POST")
+ div
+  label(for="login") Login
+  input(type="text" id="login" name="login" required)
+
+ div
+  label(for="password") Password
+  input(type="password" id="password" name="password" required)
+  input(type="submit" value="Login")
