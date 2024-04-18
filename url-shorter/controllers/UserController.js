@@ -8,23 +8,22 @@ export default class UserController extends Router {
     this.userService = new UserService();
     this.init();
   }
-  init = () => {
+   init = () => {
     this.get('/all', (req, res) =>  {
-      const users = this.userService.getUsersPublicData();
-
-      res.render('users.pug', {users})
+      this.userService.getUsersPublicData()
+        .then(users => res.render('users.pug', {users}))
     })
 
     this.post('/create', (req, res) => {
-      const {name, password} = req.body;
-      this.userService.create(name, password)
+      const {id, user_type, email, login, user_name, password} = req.body;
+      this.userService.create(id, user_type, email, login, user_name, password)
 
       res.redirect('/user/all');
     })
 
     this.get("/:userId", (req, res) => {
-      const user = this.userService.getUser(req.params.userId);
-      res.json(user);
+      this.userService.getUser(req.params.userId)
+        .then(user => res.json(user))
     });
   }
 }

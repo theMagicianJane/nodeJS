@@ -1,9 +1,4 @@
-import { generate } from "../utils/storageGenerators.js";
-import UserModel from '../models/UserModel.js';
 import UserRepository from '../repository/userRepository.js';
-
-
-const sequenceName = 'user';
 
 
 export default class UserService{
@@ -11,54 +6,29 @@ export default class UserService{
     this.userRepository = new UserRepository()
   }
 
-  create(name, password){
-    const user = new UserModel(generate(sequenceName), name, password);
-
-    this.userRepository.save(user);
+  create(id, login, email, user_type, user_name, password){
+    this.userRepository.save(id, login, email, user_type, user_name, password);
   }
 
   getUsersPublicData() {
-    const users = this.userRepository.getAll();
-
-    const result = [];
-    for (const user of users) {
-      result.push({
-        id: user.userId,
-        name: user.name
-      })
-    }
-
-    return result;
+    return this.userRepository.getAll();
   }
 
-  checkPassword(name, password) {
-    if(!name || !password){
+  async checkPassword(user_name, password) {
+    if(!user_name || !password){
       return false;
     }
 
-    const user = this.userRepository.getUserByName(name);
+    const user = await this.userRepository.getUserByName(user_name)
 
-    if (user?.password === password) {
-      return true;
-    }
-
-    return false;
+    return user?.password === password;
   }
 
-  getUser(userId){
-    const user = this.userRepository.get(userId);
-
-    return filterUserData(user);
+  async getUser(userId){
+    return await this.userRepository.get(userId);
   }
 
   getUserByName(name){
     return this.userRepository.getUserByName(name);
-  }
-}
-
-function filterUserData(user){
-  return {
-    userId: user.userId,
-    name: user.name
   }
 }

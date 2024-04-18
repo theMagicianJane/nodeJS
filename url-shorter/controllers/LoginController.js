@@ -16,14 +16,17 @@ export default class LoginController extends Router {
 
     this.post("/", (req, res) => {
       const {login, password} = req.body;
+      this.userService.checkPassword(login, password)
+        .then(result => {
+          if (result) {
+            req.session.login = login;
 
-      if (this.userService.checkPassword(login, password)) {
-        req.session.login = login;
-        const user = this.userService.getUserByName(login);
-        res.redirect(302, `/user/${user.userId}`);
-      } else {
-        res.render("login.pug", {errorMessage: "Unauthorized"});
-      }
+            this.userService.getUserByName(login)
+              .then(user =>  res.redirect(302, `/user/${user.id}`))
+          } else {
+            res.render("login.pug", {errorMessage: "Unauthorized"});
+          }
+        })
     });
   }
 }
