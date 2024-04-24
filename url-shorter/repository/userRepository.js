@@ -1,30 +1,32 @@
-const map = new Map();
+import postgres from '../postgres/client.js';
 
-map.set("2", {userId: 2, name: "qwe", password: "qwe"});
 
 export default class UserRepository{
-  save (user) {
-    map.set(user.userId, user)
-    console.log(map)
+  async save (id, login, email, user_type, user_name, password) {
+    const text = 'INSERT INTO users(id, login, email, user_type, user_name, password) VALUES($1, $2, $3, $4, $5, $6)'
+    const values = [id, login, email, user_type, user_name, password]
+    await postgres.query(text, values)
   }
 
-  get (userId) {
-    return map.get(userId)
+  async get (userId) {
+    const { rows } = await postgres.query(`SELECT * from users WHERE id=${userId}`)
+
+    return rows[0];
   }
 
-  getAll() {
-    return map.values();
+  async getAll() {
+    const all = await postgres.query('SELECT * from users')
+
+    return all.rows;
   }
 
-  getUserByName(name) {
-    console.log(map.values())
-    for (let user of map.values()) {
-      if (user.name === name) {
-        return user;
-      }
+  async getUserByName(user_name) {
+    const query = {
+      text: 'SELECT * from users WHERE user_name=$1',
+      values: [user_name],
     }
+    const { rows } = await postgres.query(query)
 
-    return null;
+    return rows[0];
   }
-
 }
