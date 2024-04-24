@@ -22,7 +22,9 @@ export default class LoginController extends Router {
             req.session.login = login;
 
             this.userService.getUserByName(login)
-              .then(user =>  res.redirect(302, `/user/${user.id}`))
+              .then(user =>  {
+                res.redirect(302, `/user/${user.id}`)
+              })
           } else {
             res.render("login.pug", {errorMessage: "Unauthorized"});
           }

@@ -14,7 +14,7 @@ export default class UrlController extends Router {
     this.get('/url', (req, res) => {
       const auth = req.header('Authorization');
       const currentUser = auth?.substring(6, auth.length).split(':')[0]
-      console.log(currentUser)
+
       this.infoService.getCurrentUserUrl(currentUser)
         .then(userUrls => {
           res.render('url-shorters.pug', {userUrls, user: userUrls[0]?.user})
