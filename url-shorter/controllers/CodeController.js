@@ -18,9 +18,8 @@ export default class UrlController extends Router {
           const { visits, url, id } = userData || {};
 
           if (url) {
+            this.infoService.updateVisits(Number(visits) + 1, id)
             res.status(302).redirect(url);
-
-            this.infoService.updateVisits(visits + 1, id)
           } else {
             res.sendStatus(404)
           }

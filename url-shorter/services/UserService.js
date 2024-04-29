@@ -28,7 +28,7 @@ export default class UserService{
     return await this.userRepository.get(userId);
   }
 
-  getUserByName(name){
-    return this.userRepository.getUserByName(name);
+  async getUserByName(name){
+    return await this.userRepository.getUserByName(name);
   }
 }
